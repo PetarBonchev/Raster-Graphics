@@ -1,10 +1,12 @@
 #pragma once
 #include <iostream>
+#include "Utility.h"
+
 class MyString
 {
 	char* data = nullptr;
-	unsigned size = 0;
-	unsigned capacity = 8;
+	unsigned size = Utility::DEFAULT_SIZE;
+	unsigned capacity = Utility::DEFAULT_CAPACITY;
 
 	void free();
 	void copyFrom(const MyString& other);
@@ -38,5 +40,3 @@ public:
 };
 
 std::ostream& operator<<(std::ostream&, const MyString& lhs);
-
-unsigned nextPowerOfTwo(unsigned n);

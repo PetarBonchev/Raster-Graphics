@@ -1,20 +1,20 @@
 #include "BitSet.h"
 
-BitSet::BitSet() :BitSet(7, 1)
+BitSet::BitSet() :BitSet(Utility::DEFAULT_MAX_NUMBER_IN_SET, Utility::DEFAULT_BITS_PER_NUMBER)
 {
 }
 
 BitSet::BitSet(unsigned maxNumber, unsigned bits) : bitsPerNumber(bits)
 {
-	if (bits == 0 || bits > 8)
+	if (bits < Utility::MIN_BITS_PER_NUMBER || bits > Utility::MAX_BITS_PER_NUMBER)
 		throw std::logic_error("invalid bit count");
 
 	size = maxNumber;
-	capacity = (size + 1) * bits;
-	if (capacity % 8)
-		capacity += 8 - capacity % 8;
+	capacity = (size + 1) * bits; // 0
+	if (capacity % Utility::BITS_IN_BYTE)
+		capacity += Utility::BITS_IN_BYTE - capacity % Utility::BITS_IN_BYTE;
 
-	container = new uint8_t[capacity / 8]{};
+	container = new uint8_t[capacity / Utility::BITS_IN_BYTE]{};
 }
 
 BitSet::BitSet(const BitSet& other)
@@ -57,17 +57,17 @@ void BitSet::add(unsigned number)
 	if (number > size)
 		throw std::out_of_range("set does not contain the number");
 
-	unsigned idx = (number + 1) * bitsPerNumber - 1;
+	unsigned idx = (number + 1) * bitsPerNumber - 1;//0
 
 	for (unsigned i = 0; i < bitsPerNumber; i++, idx--)
 	{
-		if (getBit(container[idx / 8], idx % 8))
+		if (Utility::getBit(container[idx / Utility::BITS_IN_BYTE], idx % Utility::BITS_IN_BYTE))
 		{
-			setBit(container[idx / 8], idx % 8, false);
+			Utility::setBit(container[idx / Utility::BITS_IN_BYTE], idx % Utility::BITS_IN_BYTE, false);
 		}
 		else
 		{
-			setBit(container[idx / 8], idx % 8, true);
+			Utility::setBit(container[idx / Utility::BITS_IN_BYTE], idx % Utility::BITS_IN_BYTE, true);
 			break;
 		}
 	}
@@ -78,18 +78,18 @@ void BitSet::remove(unsigned number)
 	if (number > size)
 		throw std::out_of_range("set does not contain the number");
 
-	unsigned idx = (number + 1) * bitsPerNumber - 1;
+	unsigned idx = (number + 1) * bitsPerNumber - 1;//0
 
 	for (unsigned i = 0; i < bitsPerNumber; i++, idx--)
 	{
-		if (getBit(container[idx / 8], idx % 8))
+		if (Utility::getBit(container[idx / Utility::BITS_IN_BYTE], idx % Utility::BITS_IN_BYTE))
 		{
-			setBit(container[idx / 8], idx % 8, false);
+			Utility::setBit(container[idx / Utility::BITS_IN_BYTE], idx % Utility::BITS_IN_BYTE, false);
 			break;
 		}
 		else
 		{
-			setBit(container[idx / 8], idx % 8, true);
+			Utility::setBit(container[idx / Utility::BITS_IN_BYTE], idx % Utility::BITS_IN_BYTE, true);
 		}
 	}
 }
@@ -105,7 +105,7 @@ unsigned BitSet::getNumber(unsigned number) const
 	for (unsigned i = 0; i < bitsPerNumber; i++, idx++)
 	{
 		ret <<= 1;
-		ret += getBit(container[idx / 8], idx % 8);
+		ret += Utility::getBit(container[idx / Utility::BITS_IN_BYTE], idx % Utility::BITS_IN_BYTE);
 	}
 
 	return ret;
@@ -119,7 +119,7 @@ void BitSet::printMem() const
 	for (unsigned i = 0; i < bits; i++)
 	{
 		if (!(i % 8))std::cout << " ";
-		std::cout << getBit(container[i / 8], i % 8);
+		std::cout << Utility::getBit(container[i / Utility::BITS_IN_BYTE], i % Utility::BITS_IN_BYTE);
 	}
 
 	std::cout << std::endl;
@@ -128,15 +128,15 @@ void BitSet::printMem() const
 void BitSet::free()
 {
 	delete[] container;
-	size = 0;
-	capacity = 0;
+	size = Utility::DEFAULT_SIZE;
+	capacity = Utility::DEFAULT_CAPACITY;
 }
 
 void BitSet::copyFrom(const BitSet& other)
 {
 	capacity = other.capacity;
 	size = other.size;
-	container = new uint8_t[capacity / 8]{};
+	container = new uint8_t[capacity / Utility::BITS_IN_BYTE]{};
 }
 
 void BitSet::moveFrom(BitSet&& other) noexcept
@@ -145,36 +145,9 @@ void BitSet::moveFrom(BitSet&& other) noexcept
 	other.capacity = 0;
 
 	size = other.size;
-	other.size = 0;
+	other.size = Utility::DEFAULT_SIZE;
 
 	container = other.container;
 	other.container = nullptr;
 }
 
-bool getBit(uint8_t num, unsigned pos)
-{
-	if (pos >= 8)
-		throw std::logic_error("bit does not exist");
-
-	uint8_t mask = 1 << pos;
-
-	return (num & mask);
-}
-
-void setBit(uint8_t& num, unsigned pos, bool value)
-{
-	if (pos >= 8)
-		throw std::logic_error("bit does not exist");
-
-	uint8_t mask = 1 << pos;
-
-	if (value)
-	{
-		num |= mask;
-	}
-	else
-	{
-		mask = ~mask;
-		num &= mask;
-	}
-}

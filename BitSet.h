@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Utility.h"
 
 class BitSet
 {
@@ -26,10 +27,7 @@ private:
 	void moveFrom(BitSet&& other)noexcept;
 
 	uint8_t* container = nullptr;
-	unsigned size = 0;
-	unsigned capacity = 0;
-	const unsigned bitsPerNumber = 1;
+	unsigned size = Utility::DEFAULT_SIZE;
+	unsigned capacity = Utility::DEFAULT_CAPACITY;
+	const unsigned bitsPerNumber = Utility::DEFAULT_BITS_PER_NUMBER;
 };
-
-bool getBit(uint8_t num, unsigned pos);
-void setBit(uint8_t& num, unsigned pos, bool value);

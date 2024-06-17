@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Utility.h"
 
 template<class T>
 class Vector
@@ -35,31 +36,17 @@ private:
 	void resize(size_t newCap);
 
 	T* arr = nullptr;
-	size_t size = 0;
-	size_t capacity = 0;
+	size_t size = Utility::DEFAULT_SIZE;
+	size_t capacity = Utility::DEFAULT_CAPACITY;
 };
 
 template<class T>
 Vector<T>::Vector() : Vector(8) {}
 
-static size_t closestPowerOfAwo(size_t n)
-{
-	n--;
-
-	n |= n >> 1;
-	n |= n >> 2;
-	n |= n >> 4;
-	n |= n >> 8;
-	n |= n >> 16;
-	n |= n >> 32;
-
-	return n + 1;
-};
-
 template<class T>
 Vector<T>::Vector(size_t capacity) : size(0)
 {
-	this->capacity = closestPowerOfAwo(capacity);
+	this->capacity = Utility::nextPowerOfTwo(capacity);
 	arr = new T[this->capacity];
 }
 
@@ -161,7 +148,7 @@ void Vector<T>::pushBack(T&& newElem)
 	if (size >= capacity)
 		resize(capacity * 2);
 
-	arr[size++] = std::move(newElem); //move op =
+	arr[size++] = std::move(newElem);
 }
 
 template<class T>
@@ -203,7 +190,7 @@ size_t Vector<T>::getSize() const
 template<class T>
 bool Vector<T>::isEmpty() const
 {
-	return size == 0;
+	return size == Utility::DEFAULT_SIZE;
 }
 
 
