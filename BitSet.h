@@ -32,5 +32,5 @@ private:
 	uint8_t* container = nullptr;
 	unsigned size = Utility::DEFAULT_SIZE;
 	unsigned capacity = Utility::DEFAULT_CAPACITY;
-	const unsigned bitsPerNumber = Utility::DEFAULT_BITS_PER_NUMBER;
+	unsigned bitsPerNumber = Utility::DEFAULT_BITS_PER_NUMBER;
 };

@@ -18,6 +18,6 @@ public:
 	void TurnToGrayMap(GrayMap* other)override;
 	void TurnToPixMap(PixMap* other)override;
 
-//private:
+private:
 	Vector<BitSet> data;
 };

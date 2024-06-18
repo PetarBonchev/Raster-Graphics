@@ -6,22 +6,20 @@
 
 int main()
 {
-	NetPbm* WORK = NetPbmCreator::readPbm(MyString("test1.pbm"));
-	std::cout << WORK->magicNumber << std::endl;
-	std::cout << WORK->width << std::endl;
-	std::cout << WORK->height << std::endl;
-	for (unsigned i = 0; i < WORK->header.getSize(); i++)
+	try
 	{
-		std::cout << WORK->header[i] << std::endl;
-	}
-	std::cout << "gray: " << ((GrayMap*)WORK)->maxGray << std::endl;
-	for (unsigned i = 0; i < ((GrayMap*)WORK)->data.getSize(); i++)
-	{
-		for (unsigned j = 0; j < ((GrayMap*)WORK)->data[i].getMaxNumber(); j++)
+		NetPbm* WORK = NetPbmCreator::readPbm(MyString("test1.pbm"));
+		std::cout << WORK->magicNumber << std::endl;
+		std::cout << WORK->width << std::endl;
+		std::cout << WORK->height << std::endl;
+		for (unsigned i = 0; i < WORK->header.getSize(); i++)
 		{
-			std::cout << ((GrayMap*)WORK)->data[i].getNumber(j) << " ";
+			std::cout << WORK->header[i] << std::endl;
 		}
-		std::cout << std::endl;
+	}
+	catch (std::exception& ex)
+	{
+		std::cout << ex.what() << std::endl;
 	}
 
 	MyString str("12 3 444 0");

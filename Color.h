@@ -6,7 +6,7 @@ class Color
 public:
 	Color() = default;
 	Color(BitSet data);
-	Color(unsigned r, unsigned g, unsigned b);
+	Color(unsigned r, unsigned g, unsigned b, unsigned maxValue);
 
 	unsigned r()const;
 	unsigned g()const;

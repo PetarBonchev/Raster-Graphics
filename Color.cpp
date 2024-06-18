@@ -2,7 +2,7 @@
 
 Color::Color(BitSet data) : data(data) {}
 
-Color::Color(unsigned r, unsigned g, unsigned b)
+Color::Color(unsigned r, unsigned g, unsigned b, unsigned maxValue) : data(2, Utility::minimumBitsToStore(maxValue))
 {
 	data.setNumber(Utility::RED_POITION, r);
 	data.setNumber(Utility::GREEN_POSITION, g);

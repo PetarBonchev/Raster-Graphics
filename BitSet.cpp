@@ -154,10 +154,13 @@ void BitSet::copyFrom(const BitSet& other)
 {
 	capacity = other.capacity;
 	size = other.size;
+	bitsPerNumber = other.bitsPerNumber;
 	container = new uint8_t[capacity / Utility::BITS_IN_BYTE]{};
 
 	for (unsigned i = 0; i <= size; i++)
+	{
 		setNumber(i, other.getNumber(i));
+	}
 }
 
 void BitSet::moveFrom(BitSet&& other) noexcept

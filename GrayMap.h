@@ -18,7 +18,7 @@ public:
 	void TurnToGrayMap(GrayMap* other)override;
 	void TurnToPixMap(PixMap* other)override;
 
-//private:
+private:
 	unsigned maxGray = Utility::DEFAULT_MAX_GRAY_VALUE;
 	Vector<BitSet> data;
 };

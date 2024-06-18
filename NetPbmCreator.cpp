@@ -40,6 +40,7 @@ NetPbm* NetPbmCreator::readPbm(const MyString& filename)
 			dataNumbers.pushBack(numbers[i]);
 
 		header.pushBack(std::move(line));
+
 	}
 	bool comment = true;
 	while (comment)
@@ -136,9 +137,8 @@ NetPbm* NetPbmCreator::readGrayMap(const MyString& filename, unsigned headerSkip
 
 		char buffer[Utility::BUFFER_SIZE];
 		ifs.getline(buffer, Utility::BUFFER_SIZE);
-		std::cout << "buffer: " << buffer << std::endl;
 		Vector<unsigned> values = strToVector(MyString(buffer));
-		//PROBLEM HERE
+		
 		for (unsigned j = 0; j < width; j++)
 		{
 			if (values[j] > maxGray)
@@ -146,15 +146,45 @@ NetPbm* NetPbmCreator::readGrayMap(const MyString& filename, unsigned headerSkip
 
 			row.setNumber(j, values[j]);
 		}
-		data.pushBack(std::move(row));
+		data.pushBack(row);
 	}
-
 	return GrayMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, maxGray, data).clone();
 }
 
 NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned colorValue)
 {
-	return nullptr;
+	//std::cout << "header:\n";
+	unsigned capacity = Utility::minimumBitsToStore(colorValue);
+
+	std::ifstream ifs(filename.c_str());
+
+	if (!ifs.is_open())
+		throw std::logic_error("invalid file location");
+
+	ifs.seekg(headerSkip);
+
+	Vector<Vector<Color>> data;
+	for (unsigned i = 0; i < height; i++)
+	{
+		Vector<Color> row;
+
+		char buffer[Utility::BUFFER_SIZE];
+		ifs.getline(buffer, Utility::BUFFER_SIZE);
+		std::cout << "buffer: " << buffer << std::endl;
+		Vector<unsigned> values = strToVector(MyString(buffer));
+
+		for (unsigned j = 0; j < width; j++)
+		{
+			std::cout << "j: " << j << std::endl;
+			if (values[3 * j + Utility::RED_POITION] > colorValue || values[3 * j + Utility::GREEN_POSITION] > colorValue || values[3 * j + Utility::BLUE_POSITION] > colorValue)
+				throw std::logic_error("invalid data");
+
+			std::cout << "looop?\n";
+			row.pushBack(Color(values[3 * j + Utility::RED_POITION], values[3 * j + Utility::GREEN_POSITION], values[3 * j + Utility::BLUE_POSITION], colorValue));
+		}
+		data.pushBack(row);
+	}
+	return PixMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, colorValue, data).clone();
 }
 
 NetPbm* NetPbmCreator::readBitMapBinary(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header)
