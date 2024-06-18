@@ -17,6 +17,7 @@ public:
 	void remove(unsigned number);
 
 	unsigned getNumber(unsigned number)const;
+	void setNumber(unsigned number, unsigned value);
 
 	void printMem()const;
 

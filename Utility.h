@@ -19,4 +19,14 @@ namespace Utility
 
 	bool getBit(uint8_t num, unsigned pos);
 	void setBit(uint8_t& num, unsigned pos, bool value);
+
+	//NetPbm
+	const char DEFAULT_MAGIC_NUMBER = '0';
+	const unsigned DEFAULT_WIDTH = 0;
+	const unsigned DEFAULT_HEIGHT = 0;
+
+	//Color
+	const unsigned RED_POITION = 0;
+	const unsigned BLUE_POSITION = 1;
+	const unsigned GREEN_POSITION = 2;
 }

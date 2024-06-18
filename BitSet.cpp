@@ -111,6 +111,19 @@ unsigned BitSet::getNumber(unsigned number) const
 	return ret;
 }
 
+void BitSet::setNumber(unsigned number, unsigned value)
+{
+	if (number > size)
+		throw std::out_of_range("set does not contain the number");
+
+	unsigned idx = (number + 1) * bitsPerNumber - 1;//0
+
+	for (unsigned i = 0; i < bitsPerNumber; i++, idx--)
+	{
+		Utility::setBit(container[idx / Utility::BITS_IN_BYTE], idx % Utility::BITS_IN_BYTE, Utility::getBit(value, i));
+	}
+}
+
 void BitSet::printMem() const
 {
 	unsigned bits = (size + 1) * bitsPerNumber;
