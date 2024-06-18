@@ -31,6 +31,7 @@ namespace Utility
 	const unsigned GREEN_POSITION = 2;
 
 	//BitMap
+	const unsigned DEFAULT_MAX_BIT_VALUE = 1;
 	const char BITMAP_NORMAL_MAGIC_NUMBER = '1';
 	const char BITMAP_BINARY_MAGIC_NUMBER = '4';
 
@@ -43,4 +44,17 @@ namespace Utility
 	const unsigned DEFAULT_MAX_COLOR_VALUE = 255;
 	const char PIXMAP_NORMAL_MAGIC_NUMBER = '3';
 	const char PIXMAP_BINARY_MAGIC_NUMBER = '6';
+
+	//NetPbmCreator
+	const unsigned BUFFER_SIZE = 1024;
+	const unsigned MAGIC_NUMBER_POSITION_ON_ROW_1 = 1;
+	const char COMMENT_SIGN = '#';
+	const char NUMBER_SEPARATOR = ' ';
+	bool isDigit(char ch);
+	unsigned charToDigit(char ch);
+	bool isBit(unsigned number);
+	unsigned minimumBitsToStore(unsigned number);
+
+	const unsigned EXPECTED_NUMBERS_BITMAP = 2;
+	const unsigned EXPECTED_NUMBERS_OTHERS = 3;
 }

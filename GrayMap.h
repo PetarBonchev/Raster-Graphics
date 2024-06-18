@@ -5,7 +5,7 @@ class GrayMap : public NetPbm
 {
 public:
 	GrayMap() = default;
-	GrayMap(char magicNumber, unsigned width, unsigned height, Vector<MyString> header, unsigned maxGray, Vector<BitSet> data);
+	GrayMap(char magicNumber, unsigned width, unsigned height, const Vector<MyString> &header, unsigned maxGray,const Vector<BitSet> &data);
 	~GrayMap() = default;
 
 	bool isValid() const override;
@@ -18,7 +18,7 @@ public:
 	void TurnToGrayMap(GrayMap* other)override;
 	void TurnToPixMap(PixMap* other)override;
 
-private:
+//private:
 	unsigned maxGray = Utility::DEFAULT_MAX_GRAY_VALUE;
 	Vector<BitSet> data;
 };

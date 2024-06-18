@@ -5,7 +5,7 @@ class BitMap : public NetPbm
 {
 public:
 	BitMap() = default;
-	BitMap(char magicNumber, unsigned width, unsigned height, Vector<MyString> header, Vector<BitSet> data);
+	BitMap(char magicNumber, unsigned width, unsigned height,const Vector<MyString> &header,const Vector<BitSet>& data);
 	~BitMap() = default;
 
 	bool isValid() const override;
@@ -18,6 +18,6 @@ public:
 	void TurnToGrayMap(GrayMap* other)override;
 	void TurnToPixMap(PixMap* other)override;
 
-private:
+//private:
 	Vector<BitSet> data;
 };

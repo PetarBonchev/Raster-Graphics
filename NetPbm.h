@@ -25,7 +25,7 @@ public:
 	virtual void TurnToPixMap(PixMap* other) = 0;
 
 	virtual ~NetPbm() = default;
-protected:
+//protected:
 
 	char magicNumber = Utility::DEFAULT_MAGIC_NUMBER;
 	unsigned width = Utility::DEFAULT_WIDTH;

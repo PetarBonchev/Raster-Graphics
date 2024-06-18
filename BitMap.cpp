@@ -1,6 +1,6 @@
 #include "BitMap.h"
 
-BitMap::BitMap(char magicNumber, unsigned width, unsigned height, Vector<MyString> header, Vector<BitSet> data) : NetPbm(magicNumber, width, height, header), data(data) {}
+BitMap::BitMap(char magicNumber, unsigned width, unsigned height, const Vector<MyString> &header, const Vector<BitSet> &data) : NetPbm(magicNumber, width, height, header), data(data) {}
 
 bool BitMap::isValid() const
 {

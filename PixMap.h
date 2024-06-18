@@ -6,7 +6,7 @@ class PixMap : public NetPbm
 {
 public:
 	PixMap() = default;
-	PixMap(char magicNumber, unsigned width, unsigned height, Vector<MyString> header, unsigned colorValue, Vector<Vector<Color>> data);
+	PixMap(char magicNumber, unsigned width, unsigned height,const Vector<MyString> &header, unsigned colorValue,const Vector<Vector<Color>> &data);
 	~PixMap() = default;
 
 	bool isValid() const override;

@@ -39,3 +39,34 @@ void Utility::setBit(uint8_t& num, unsigned pos, bool value)
 		num &= mask;
 	}
 }
+
+bool Utility::isDigit(char ch)
+{
+	return '0' <= ch && ch <= '9';
+}
+
+unsigned Utility::charToDigit(char ch)
+{
+	if (!isDigit(ch))
+		throw std::logic_error("incorrect input - text to number failed");
+
+	return ch - '0';
+}
+
+bool Utility::isBit(unsigned number)
+{
+	return number == 0 || number == 1;
+}
+
+unsigned Utility::minimumBitsToStore(unsigned number)
+{
+	unsigned ans = 0;
+	while (number)
+	{
+		number >>= 1;
+		ans++;
+	}
+	return ans;
+}
+
+

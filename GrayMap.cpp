@@ -1,6 +1,6 @@
 #include "GrayMap.h"
 
-GrayMap::GrayMap(char magicNumber, unsigned width, unsigned height, Vector<MyString> header, unsigned maxGray, Vector<BitSet> data)
+GrayMap::GrayMap(char magicNumber, unsigned width, unsigned height, const Vector<MyString> &header, unsigned maxGray,const Vector<BitSet> &data)
 	: NetPbm(magicNumber, width, height, header), maxGray(maxGray), data(data) {}
 
 bool GrayMap::isValid() const

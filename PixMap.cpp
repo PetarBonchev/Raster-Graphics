@@ -1,6 +1,6 @@
 #include "PixMap.h"
 
-PixMap::PixMap(char magicNumber, unsigned width, unsigned height, Vector<MyString> header, unsigned colorValue, Vector<Vector<Color>> data)
+PixMap::PixMap(char magicNumber, unsigned width, unsigned height,const Vector<MyString> &header, unsigned colorValue,const Vector<Vector<Color>> &data)
 	: NetPbm(magicNumber, width, height, header), colorValue(colorValue), data(data) {}
 
 bool PixMap::isValid() const
