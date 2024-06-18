@@ -6,20 +6,20 @@ class PixMap : public NetPbm
 {
 public:
 	PixMap() = default;
-	PixMap(const NetPbm base, Vector<Color> data) :NetPbm(base), data(data) {}
-	PixMap(char magicNumber, unsigned width, unsigned height, Vector<MyString> header, Vector<Color> data) : NetPbm(magicNumber, width, height, header), data(data) {}
+	PixMap(char magicNumber, unsigned width, unsigned height, Vector<MyString> header, unsigned colorValue, Vector<Vector<Color>> data);
 	~PixMap() = default;
 
 	bool isValid() const override;
 
 	NetPbm* clone()const override;
 
-	void TurnTo(const NetPbm* other)override;
+	void TurnTo(NetPbm* other)override;
 
-	void TurnToBitMap(const BitMap* other)override;
-	void TurnToGrayMap(const GrayMap* other)override;
-	void TurnToPixMap(const PixMap* other)override;
+	void TurnToBitMap(BitMap* other)override;
+	void TurnToGrayMap(GrayMap* other)override;
+	void TurnToPixMap(PixMap* other)override;
 
 private:
-	Vector<Color> data;
+	unsigned colorValue = Utility::DEFAULT_MAX_COLOR_VALUE;
+	Vector<Vector<Color>> data;
 };

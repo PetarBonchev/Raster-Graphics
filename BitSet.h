@@ -13,6 +13,8 @@ public:
 	BitSet& operator=(BitSet&& other)noexcept;
 	~BitSet();
 
+	unsigned getMaxNumber()const;
+
 	void add(unsigned number);
 	void remove(unsigned number);
 

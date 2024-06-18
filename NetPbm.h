@@ -18,14 +18,14 @@ public:
 
 	virtual NetPbm* clone()const = 0;
 
-	virtual void TurnTo(const NetPbm* other) = 0;
+	virtual void TurnTo(NetPbm* other) = 0;
 
-	virtual void TurnToBitMap(const BitMap* other) = 0;
-	virtual void TurnToGrayMap(const GrayMap* other) = 0;
-	virtual void TurnToPixMap(const PixMap* other) = 0;
+	virtual void TurnToBitMap(BitMap* other) = 0;
+	virtual void TurnToGrayMap(GrayMap* other) = 0;
+	virtual void TurnToPixMap(PixMap* other) = 0;
 
 	virtual ~NetPbm() = default;
-private:
+protected:
 
 	char magicNumber = Utility::DEFAULT_MAGIC_NUMBER;
 	unsigned width = Utility::DEFAULT_WIDTH;

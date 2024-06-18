@@ -29,4 +29,18 @@ namespace Utility
 	const unsigned RED_POITION = 0;
 	const unsigned BLUE_POSITION = 1;
 	const unsigned GREEN_POSITION = 2;
+
+	//BitMap
+	const char BITMAP_NORMAL_MAGIC_NUMBER = '1';
+	const char BITMAP_BINARY_MAGIC_NUMBER = '4';
+
+	//GrayMap
+	const unsigned DEFAULT_MAX_GRAY_VALUE = 15;
+	const char GRAYMAP_NORMAL_MAGIC_NUMBER = '2';
+	const char GRAYMAP_BINARY_MAGIC_NUMBER = '5';
+
+	//PixMap
+	const unsigned DEFAULT_MAX_COLOR_VALUE = 255;
+	const char PIXMAP_NORMAL_MAGIC_NUMBER = '3';
+	const char PIXMAP_BINARY_MAGIC_NUMBER = '6';
 }

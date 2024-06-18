@@ -52,6 +52,11 @@ BitSet::~BitSet()
 	free();
 }
 
+unsigned BitSet::getMaxNumber() const
+{
+	return size;
+}
+
 void BitSet::add(unsigned number)
 {
 	if (number > size)
