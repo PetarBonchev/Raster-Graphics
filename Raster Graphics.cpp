@@ -6,22 +6,39 @@
 
 int main()
 {
-	try
-	{
-		NetPbm* WORK = NetPbmCreator::readPbm(MyString("test1.pbm"));
-		std::cout << WORK->magicNumber << std::endl;
-		std::cout << WORK->width << std::endl;
-		std::cout << WORK->height << std::endl;
-		for (unsigned i = 0; i < WORK->header.getSize(); i++)
-		{
-			std::cout << WORK->header[i] << std::endl;
-		}
-	}
-	catch (std::exception& ex)
-	{
-		std::cout << ex.what() << std::endl;
-	}
-
+//	/*BitSet bs(4, 5);
+//	bs.setNumber(2, 11);
+//	Color c(bs);
+//	c.check();
+//	Vector<Color> vbs;
+//	vbs.pushBack(c);
+//	vbs[0].check();*/
+//	try
+//	{
+//		NetPbm* WORK = NetPbmCreator::readPbm(MyString("test1.pbm"));
+//		std::cout << WORK->magicNumber << std::endl;
+//		std::cout << WORK->width << std::endl;
+//		std::cout << WORK->height << std::endl;
+//		for (unsigned i = 0; i < WORK->header.getSize(); i++)
+//		{
+//			std::cout << WORK->header[i] << std::endl;
+//		}
+//		for (unsigned i = 0; i < ((PixMap*)WORK)->data.getSize(); i++)
+//		{
+//			for (unsigned j = 0; j < ((PixMap*)WORK)->data[i].getSize(); j++)
+//			{
+//				std::cout << ((PixMap*)WORK)->data[i][j].r() << " ";
+//				std::cout << ((PixMap*)WORK)->data[i][j].g() << " ";
+//				std::cout << ((PixMap*)WORK)->data[i][j].b() << std::endl;
+//			}
+//		}
+//
+//	}
+//	catch (std::exception& ex)
+//	{
+//		std::cout << ex.what() << std::endl;
+//	}
+	
 	MyString str("12 3 444 0");
 
 	Vector<unsigned> v;

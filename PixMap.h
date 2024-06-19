@@ -19,7 +19,7 @@ public:
 	void TurnToGrayMap(GrayMap* other)override;
 	void TurnToPixMap(PixMap* other)override;
 
-//private:
+private:
 	unsigned colorValue = Utility::DEFAULT_MAX_COLOR_VALUE;
 	Vector<Vector<Color>> data;
 };

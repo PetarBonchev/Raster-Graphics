@@ -44,6 +44,7 @@ namespace Utility
 	const unsigned DEFAULT_MAX_COLOR_VALUE = 255;
 	const char PIXMAP_NORMAL_MAGIC_NUMBER = '3';
 	const char PIXMAP_BINARY_MAGIC_NUMBER = '6';
+	const unsigned NUMBER_OF_COLORS_IN_PIXEL = 3;
 
 	//NetPbmCreator
 	const unsigned BUFFER_SIZE = 1024;

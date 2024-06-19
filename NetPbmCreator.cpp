@@ -153,7 +153,6 @@ NetPbm* NetPbmCreator::readGrayMap(const MyString& filename, unsigned headerSkip
 
 NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned colorValue)
 {
-	//std::cout << "header:\n";
 	unsigned capacity = Utility::minimumBitsToStore(colorValue);
 
 	std::ifstream ifs(filename.c_str());
@@ -170,17 +169,20 @@ NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip,
 
 		char buffer[Utility::BUFFER_SIZE];
 		ifs.getline(buffer, Utility::BUFFER_SIZE);
-		std::cout << "buffer: " << buffer << std::endl;
 		Vector<unsigned> values = strToVector(MyString(buffer));
 
 		for (unsigned j = 0; j < width; j++)
 		{
-			std::cout << "j: " << j << std::endl;
 			if (values[3 * j + Utility::RED_POITION] > colorValue || values[3 * j + Utility::GREEN_POSITION] > colorValue || values[3 * j + Utility::BLUE_POSITION] > colorValue)
 				throw std::logic_error("invalid data");
 
-			std::cout << "looop?\n";
-			row.pushBack(Color(values[3 * j + Utility::RED_POITION], values[3 * j + Utility::GREEN_POSITION], values[3 * j + Utility::BLUE_POSITION], colorValue));
+			BitSet bitset(Utility::NUMBER_OF_COLORS_IN_PIXEL - 1, Utility::minimumBitsToStore(colorValue));
+			bitset.setNumber(Utility::RED_POITION, values[3 * j + Utility::RED_POITION]);
+			bitset.setNumber(Utility::GREEN_POSITION, values[3 * j + Utility::GREEN_POSITION]);
+			bitset.setNumber(Utility::BLUE_POSITION, values[3 * j + Utility::BLUE_POSITION]);
+			Color temp(bitset);
+			row.pushBack(temp);
+			//row[row.getSize() - 1].check();
 		}
 		data.pushBack(row);
 	}
