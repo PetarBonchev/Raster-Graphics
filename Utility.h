@@ -35,10 +35,18 @@ namespace Utility
 	const char BITMAP_NORMAL_MAGIC_NUMBER = '1';
 	const char BITMAP_BINARY_MAGIC_NUMBER = '4';
 
+	const unsigned GRAYMAP_BITMAP_WHITE_COLOR_TRESHOLD = 7;
+	const unsigned BITMAP_WHITE_COLOR_VALUE = 0;
+	const unsigned BITMAP_BLACK_COLOR_VALUE = 1;
+
 	//GrayMap
 	const unsigned DEFAULT_MAX_GRAY_VALUE = 15;
 	const char GRAYMAP_NORMAL_MAGIC_NUMBER = '2';
 	const char GRAYMAP_BINARY_MAGIC_NUMBER = '5';
+
+	const double GRAYMAP_RED_TO_GRAY = 0.2126;
+	const double GRAYMAP_GREEN_TO_GRAY = 0.7152;
+	const double GRAYMAP_BLUE_TO_GRAY = 0.0722;
 
 	//PixMap
 	const unsigned DEFAULT_MAX_COLOR_VALUE = 255;

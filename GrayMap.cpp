@@ -23,24 +23,12 @@ bool GrayMap::isValid() const
 	return true;
 }
 
-NetPbm* GrayMap::clone() const
+const unsigned GrayMap::getMaxGray() const
 {
-	return new GrayMap(*this);
+	return maxGray;
 }
 
-void GrayMap::TurnTo(NetPbm* other)
+const Vector<BitSet>& GrayMap::getData() const
 {
-	other->TurnToGrayMap(this);
-}
-
-void GrayMap::TurnToBitMap(BitMap* other)
-{
-}
-
-void GrayMap::TurnToGrayMap(GrayMap* other)
-{
-}
-
-void GrayMap::TurnToPixMap(PixMap* other)
-{
+	return data;
 }

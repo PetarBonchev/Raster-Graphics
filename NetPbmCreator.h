@@ -10,6 +10,7 @@ class NetPbmCreator
 public:
 	static NetPbm* readPbm(const MyString& filename);
 
+private:
 	static NetPbm* readBitMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header);
 	static NetPbm* readGrayMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned maxGray);
 	static NetPbm* readPixMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned colorValue);

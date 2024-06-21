@@ -116,7 +116,7 @@ NetPbm* NetPbmCreator::readBitMap(const MyString& filename, unsigned headerSkip,
 		data.pushBack(std::move(row));
 	}
 
-	return BitMap(Utility::BITMAP_NORMAL_MAGIC_NUMBER, width, height, header, data).clone();
+	return new BitMap(Utility::BITMAP_NORMAL_MAGIC_NUMBER, width, height, header, data);
 }
 
 NetPbm* NetPbmCreator::readGrayMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned maxGray)
@@ -148,7 +148,7 @@ NetPbm* NetPbmCreator::readGrayMap(const MyString& filename, unsigned headerSkip
 		}
 		data.pushBack(row);
 	}
-	return GrayMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, maxGray, data).clone();
+	return new GrayMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, maxGray, data);
 }
 
 NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned colorValue)
@@ -186,7 +186,7 @@ NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip,
 		}
 		data.pushBack(row);
 	}
-	return PixMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, colorValue, data).clone();
+	return new PixMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, colorValue, data);
 }
 
 NetPbm* NetPbmCreator::readBitMapBinary(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header)

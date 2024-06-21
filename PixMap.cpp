@@ -23,24 +23,12 @@ bool PixMap::isValid() const
 	return true;
 }
 
-NetPbm* PixMap::clone() const
+const unsigned PixMap::getColorValue() const
 {
-	return new PixMap(*this);
+	return colorValue;
 }
 
-void PixMap::TurnTo(NetPbm* other)
+const Vector<Vector<Color>>& PixMap::getData() const
 {
-	other->TurnToPixMap(this);
-}
-
-void PixMap::TurnToBitMap(BitMap* other)
-{
-}
-
-void PixMap::TurnToGrayMap(GrayMap* other)
-{
-}
-
-void PixMap::TurnToPixMap(PixMap* other)
-{
+	return data;
 }

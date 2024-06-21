@@ -9,14 +9,10 @@ public:
 	~GrayMap() = default;
 
 	bool isValid() const override;
+	void negative() override;
 
-	NetPbm* clone()const override;
-
-	void TurnTo(NetPbm* other)override;
-
-	void TurnToBitMap(BitMap* other)override;
-	void TurnToGrayMap(GrayMap* other)override;
-	void TurnToPixMap(PixMap* other)override;
+	const unsigned getMaxGray()const;
+	const Vector<BitSet>& getData()const;
 
 private:
 	unsigned maxGray = Utility::DEFAULT_MAX_GRAY_VALUE;

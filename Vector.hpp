@@ -30,7 +30,7 @@ public:
 
 private:
 	void free();
-	void copyFrom(const Vector& other);
+	void copyFrom(const Vector<T>& other);
 	void moveFrom(Vector<T>&& other);
 
 	void resize(size_t newCap);

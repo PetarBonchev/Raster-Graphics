@@ -19,24 +19,7 @@ bool BitMap::isValid() const
 	return true;
 }
 
-NetPbm* BitMap::clone() const
+const Vector<BitSet>& BitMap::getData() const
 {
-	return new BitMap(*this);
-}
-
-void BitMap::TurnTo(NetPbm* other)
-{
-	other->TurnToBitMap(this);
-}
-
-void BitMap::TurnToBitMap(BitMap* other)
-{
-}
-
-void BitMap::TurnToGrayMap(GrayMap* other)
-{
-}
-
-void BitMap::TurnToPixMap(PixMap* other)
-{
+	return data;
 }

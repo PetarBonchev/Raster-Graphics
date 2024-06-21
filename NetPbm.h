@@ -4,10 +4,6 @@
 #include "BitSet.h"
 #include "Utility.h"
 
-class BitMap;
-class GrayMap;
-class PixMap;
-
 class NetPbm
 {
 public:
@@ -15,14 +11,12 @@ public:
 	NetPbm(char magicNumber, unsigned width, unsigned height, Vector<MyString> header);
 
 	virtual bool isValid() const;
+	virtual void negative() = 0;
 
-	virtual NetPbm* clone()const = 0;
-
-	virtual void TurnTo(NetPbm* other) = 0;
-
-	virtual void TurnToBitMap(BitMap* other) = 0;
-	virtual void TurnToGrayMap(GrayMap* other) = 0;
-	virtual void TurnToPixMap(PixMap* other) = 0;
+	const char getMagicNumber()const;
+	const unsigned getWidth()const;
+	const unsigned getHeight()const;
+	const Vector<MyString>& getHeader()const;
 
 	virtual ~NetPbm() = default;
 protected:
