@@ -11,6 +11,8 @@ public:
 	unsigned r()const;
 	unsigned g()const;
 	unsigned b()const;
+
+	void negative(unsigned maxValue);
 private:
 	void check()const;
 	BitSet data;

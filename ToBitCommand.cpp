@@ -64,7 +64,7 @@ NetPbm* ToBitCommand::GrayMapToBit(unsigned idx)
 	char newMagicNumber = grayMap->getMagicNumber() == Utility::GRAYMAP_NORMAL_MAGIC_NUMBER ? 
 		Utility::BITMAP_NORMAL_MAGIC_NUMBER : Utility::BITMAP_BINARY_MAGIC_NUMBER;
 	
-	return new BitMap(newMagicNumber, grayMap->getWidth(), grayMap->getHeight(), grayMap->getHeight(), newData);
+	return new BitMap(newMagicNumber, grayMap->getWidth(), grayMap->getHeight(), grayMap->getHeader(), grayMap->getFilename(), newData);
 }
 
 NetPbm* ToBitCommand::PixMapToBit(unsigned idx)
@@ -79,7 +79,7 @@ NetPbm* ToBitCommand::PixMapToBit(unsigned idx)
 
 	for (unsigned i = 0;i < data.getSize();i++)
 	{
-		BitSet newRow(data[i].getSize(), Utility::DEFAULT_MAX_BIT_VALUE);
+		BitSet newRow(data[i].getSize() - 1, Utility::DEFAULT_MAX_BIT_VALUE);
 		for (unsigned j = 0;j < data[i].getSize();j++)
 		{
 			unsigned grayValue = data[i][j].r() * Utility::GRAYMAP_RED_TO_GRAY +
@@ -95,5 +95,5 @@ NetPbm* ToBitCommand::PixMapToBit(unsigned idx)
 	char newMagicNumber = pixMap->getMagicNumber() == Utility::GRAYMAP_NORMAL_MAGIC_NUMBER ?
 		Utility::BITMAP_NORMAL_MAGIC_NUMBER : Utility::BITMAP_BINARY_MAGIC_NUMBER;
 
-	return new BitMap(newMagicNumber, pixMap->getWidth(), pixMap->getHeight(), pixMap->getHeight(), newData);
+	return new BitMap(newMagicNumber, pixMap->getWidth(), pixMap->getHeight(), pixMap->getHeader(), pixMap->getFilename(), newData);
 }

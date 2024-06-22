@@ -7,6 +7,7 @@ NetPbm* NetPbmCreator::readPbm(const MyString& filename)
 		throw std::logic_error("invalid file location");
 
 	char buffer[Utility::BUFFER_SIZE];
+
 	ifs.getline(buffer, Utility::BUFFER_SIZE);
 
 	char magicNumber = buffer[Utility::MAGIC_NUMBER_POSITION_ON_ROW_1];
@@ -38,7 +39,7 @@ NetPbm* NetPbmCreator::readPbm(const MyString& filename)
 		unsigned len = numbers.getSize();
 		for (unsigned i = 0; i < len; i++)
 			dataNumbers.pushBack(numbers[i]);
-
+		
 		header.pushBack(std::move(line));
 
 	}
@@ -116,7 +117,9 @@ NetPbm* NetPbmCreator::readBitMap(const MyString& filename, unsigned headerSkip,
 		data.pushBack(std::move(row));
 	}
 
-	return new BitMap(Utility::BITMAP_NORMAL_MAGIC_NUMBER, width, height, header, data);
+	ifs.close();
+
+	return new BitMap(Utility::BITMAP_NORMAL_MAGIC_NUMBER, width, height, header, filename, data);
 }
 
 NetPbm* NetPbmCreator::readGrayMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned maxGray)
@@ -148,7 +151,10 @@ NetPbm* NetPbmCreator::readGrayMap(const MyString& filename, unsigned headerSkip
 		}
 		data.pushBack(row);
 	}
-	return new GrayMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, maxGray, data);
+
+	ifs.close();
+
+	return new GrayMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, filename, maxGray, data);
 }
 
 NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned colorValue)
@@ -173,11 +179,11 @@ NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip,
 
 		for (unsigned j = 0; j < width; j++)
 		{
-			if (values[3 * j + Utility::RED_POITION] > colorValue || values[3 * j + Utility::GREEN_POSITION] > colorValue || values[3 * j + Utility::BLUE_POSITION] > colorValue)
+			if (values[3 * j + Utility::RED_POSITION] > colorValue || values[3 * j + Utility::GREEN_POSITION] > colorValue || values[3 * j + Utility::BLUE_POSITION] > colorValue)
 				throw std::logic_error("invalid data");
 
 			BitSet bitset(Utility::NUMBER_OF_COLORS_IN_PIXEL - 1, Utility::minimumBitsToStore(colorValue));
-			bitset.setNumber(Utility::RED_POITION, values[3 * j + Utility::RED_POITION]);
+			bitset.setNumber(Utility::RED_POSITION, values[3 * j + Utility::RED_POSITION]);
 			bitset.setNumber(Utility::GREEN_POSITION, values[3 * j + Utility::GREEN_POSITION]);
 			bitset.setNumber(Utility::BLUE_POSITION, values[3 * j + Utility::BLUE_POSITION]);
 			Color temp(bitset);
@@ -186,7 +192,10 @@ NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip,
 		}
 		data.pushBack(row);
 	}
-	return new PixMap(Utility::GRAYMAP_NORMAL_MAGIC_NUMBER, width, height, header, colorValue, data);
+
+	ifs.close();
+
+	return new PixMap(Utility::PIXMAP_NORMAL_MAGIC_NUMBER, width, height, header, filename, colorValue, data);
 }
 
 NetPbm* NetPbmCreator::readBitMapBinary(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header)

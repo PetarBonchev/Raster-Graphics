@@ -1,6 +1,7 @@
 #include "NetPbm.h"
 
-NetPbm::NetPbm(char magicNumber, unsigned width, unsigned height, Vector<MyString> header) :magicNumber(magicNumber), width(width), height(height), header(header) {}
+NetPbm::NetPbm(char magicNumber, unsigned width, unsigned height, const Vector<MyString>& header, const MyString& filename)
+	:magicNumber(magicNumber), width(width), height(height), header(header), filename(filename) {}
 
 bool NetPbm::isValid() const
 {
@@ -25,4 +26,9 @@ const unsigned NetPbm::getHeight() const
 const Vector<MyString>& NetPbm::getHeader() const
 {
 	return header;
+}
+
+const MyString& NetPbm::getFilename() const
+{
+	return filename;
 }

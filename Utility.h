@@ -26,9 +26,9 @@ namespace Utility
 	const unsigned DEFAULT_HEIGHT = 0;
 
 	//Color
-	const unsigned RED_POITION = 0;
-	const unsigned BLUE_POSITION = 1;
-	const unsigned GREEN_POSITION = 2;
+	const unsigned RED_POSITION = 0;
+	const unsigned GREEN_POSITION = 1;
+	const unsigned BLUE_POSITION = 2;
 
 	//BitMap
 	const unsigned DEFAULT_MAX_BIT_VALUE = 1;
@@ -66,4 +66,7 @@ namespace Utility
 
 	const unsigned EXPECTED_NUMBERS_BITMAP = 2;
 	const unsigned EXPECTED_NUMBERS_OTHERS = 3;
+
+	//NetPbmSaver
+	
 }
