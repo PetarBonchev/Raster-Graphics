@@ -62,6 +62,7 @@ namespace Utility
 	const char NUMBER_SEPARATOR = ' ';
 	bool isDigit(char ch);
 	unsigned charToDigit(char ch);
+	unsigned strToUnsigned(const char* str);
 	bool isBit(unsigned number);
 	unsigned minimumBitsToStore(unsigned number);
 	unsigned digitCount(unsigned number);

@@ -32,3 +32,8 @@ const MyString& NetPbm::getFilename() const
 {
 	return filename;
 }
+
+void NetPbm::setFilename(const MyString& filename)
+{
+	this->filename = filename;
+}

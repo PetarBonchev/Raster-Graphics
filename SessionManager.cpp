@@ -15,6 +15,8 @@ void SessionManager::addSession()
 
 void SessionManager::goToSession(unsigned index)
 {
+    index--;
+
     if (index >= sessions.getSize())
         throw std::logic_error("Session ID not found");
 

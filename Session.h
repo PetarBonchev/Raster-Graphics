@@ -4,6 +4,7 @@
 #include "NetPbm.h"
 #include "MyString.h"
 #include "CommandVector.h"
+#include "NetPbmSaver.h"
 
 class Session
 {
@@ -13,6 +14,8 @@ public:
 	void execute();
 	void executeAll();
 	void undo();//not using
+	void saveAll()const;
+	void saveFirst(const MyString& filename);
 	MyString history()const;
 
 	Vector<Polymorphic_Ptr<NetPbm>>& getImages();

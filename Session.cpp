@@ -35,6 +35,23 @@ void Session::undo()
 {
 }
 
+void Session::saveAll() const
+{
+	for (unsigned i = 0;i < images.getSize();i++)
+	{
+		NetPbmSaver::savePbm(images[i].get());
+	}
+}
+
+void Session::saveFirst(const MyString& filename)
+{
+	if (images.getSize() == 0)
+		throw std::logic_error("No image to save in this session");
+
+	images[0]->setFilename(filename);
+	NetPbmSaver::savePbm(images[0].get());
+}
+
 MyString Session::history() const
 {
 	MyString info("Name of images in the session: ");

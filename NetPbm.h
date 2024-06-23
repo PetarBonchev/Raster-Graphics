@@ -22,6 +22,8 @@ public:
 	const Vector<MyString>& getHeader()const;
 	const MyString& getFilename()const;
 
+	void setFilename(const MyString& filename);
+
 	virtual ~NetPbm() = default;
 protected:
 

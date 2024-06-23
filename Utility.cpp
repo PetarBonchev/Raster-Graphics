@@ -53,6 +53,20 @@ unsigned Utility::charToDigit(char ch)
 	return ch - '0';
 }
 
+unsigned Utility::strToUnsigned(const char* str)
+{
+	if (!str)
+		throw std::logic_error("invalid string for convertion to number");
+
+	unsigned number = 0;
+	while (*str)
+	{
+		(number *= 10) += charToDigit(*str);
+		str++;
+	}
+	return number;
+}
+
 bool Utility::isBit(unsigned number)
 {
 	return number == 0 || number == 1;
