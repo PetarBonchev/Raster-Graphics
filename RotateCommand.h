@@ -7,11 +7,12 @@ public:
 
 	RotateCommand(Vector<Polymorphic_Ptr<NetPbm>>& data, bool rotateLeft);
 
-	virtual void execute() = 0;
-	virtual void undo() = 0;
+	void execute() override;
+	void undo() override;
 
 	virtual ~RotateCommand() = default;
-	virtual CommandVector* clone()const = 0;
+	CommandVector* clone()const override;
+	MyString message()const override;
 
 private:
 	bool rotateLeft = false;

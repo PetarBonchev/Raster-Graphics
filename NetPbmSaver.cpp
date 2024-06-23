@@ -5,25 +5,15 @@ void NetPbmSaver::savePbm(const NetPbm* object)
 {
 	std::ofstream ofs(object->getFilename().c_str());
 
+	ofs << Utility::MAGIC_NUMBER_SYMBOL << object->getMagicNumber() << std::endl;
 	for (unsigned i = 0;i < object->getHeader().getSize();i++)
 	{
-		ofs << object->getHeader()[i].c_str() << std::endl;
+		if(object->getHeader()[i][0] == Utility::COMMENT_SIGN)
+			ofs << object->getHeader()[i].c_str() << std::endl;
 	}
+	ofs << object->getWidth() << Utility::NUMBER_SEPARATOR << object->getHeight() << std::endl;
 
 	ofs.close();
-
-	std::cout<<"Valid? " << ((PixMap*)(object))->isValid() << std::endl;
-
-	for (unsigned i = 0;i < ((PixMap*)(object))->getData().getSize();i++)
-	{
-		for (unsigned j = 0;j < ((PixMap*)(object))->getData()[i].getSize();j++)
-		{
-			std::cout << ((PixMap*)(object))->getData()[i][j].r() << " ";
-			std::cout << ((PixMap*)(object))->getData()[i][j].g() << " ";
-			std::cout << ((PixMap*)(object))->getData()[i][j].b() << " ";
-		}
-		std::cout << std::endl;
-	}
 
 	switch (object->getMagicNumber())
 	{
@@ -63,6 +53,7 @@ void NetPbmSaver::saveP2(const GrayMap* object)
 {
 	std::ofstream ofs(object->getFilename().c_str(), std::ios::app);
 
+	ofs << object->getMaxGray() << std::endl;
 	for (unsigned i = 0;i < object->getData().getSize();i++)
 	{
 		for (unsigned j = 0;j <= object->getData()[i].getMaxNumber();j++)
@@ -77,6 +68,7 @@ void NetPbmSaver::saveP3(const PixMap* object)
 {
 	std::ofstream ofs(object->getFilename().c_str(), std::ios::app);
 
+	ofs << object->getColorValue() << std::endl;
 	for (unsigned i = 0;i < object->getData().getSize();i++)
 	{
 		for (unsigned j = 0;j < object->getData()[i].getSize();j++)

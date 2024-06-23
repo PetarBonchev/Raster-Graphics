@@ -36,13 +36,18 @@ CommandVector* ToGrayCommand::clone() const
 	return new ToGrayCommand(*this);
 }
 
+MyString ToGrayCommand::message() const
+{
+	return MyString("grayscale");
+}
+
 NetPbm* ToGrayCommand::PixMapToGray(unsigned idx)
 {
 	PixMap* pixMap = (PixMap*)data[idx].get();
 
 	if (!pixMap->isValid())
 		throw std::logic_error("converting pixmap to graymap error");
-
+	
 	Vector<Vector<Color>> data = pixMap->getData();
 	Vector<BitSet> newData;
 
@@ -59,8 +64,8 @@ NetPbm* ToGrayCommand::PixMapToGray(unsigned idx)
 		newData.pushBack(newRow);
 	}
 
-	char newMagicNumber = pixMap->getMagicNumber() == Utility::GRAYMAP_NORMAL_MAGIC_NUMBER ?
-		Utility::BITMAP_NORMAL_MAGIC_NUMBER : Utility::BITMAP_BINARY_MAGIC_NUMBER;
+	char newMagicNumber = pixMap->getMagicNumber() == Utility::PIXMAP_NORMAL_MAGIC_NUMBER ?
+		Utility::GRAYMAP_NORMAL_MAGIC_NUMBER : Utility::GRAYMAP_BINARY_MAGIC_NUMBER;
 
-	return new BitMap(newMagicNumber, pixMap->getWidth(), pixMap->getHeight(), pixMap->getHeader(), pixMap->getFilename(), newData);
+	return new GrayMap(newMagicNumber, pixMap->getWidth(), pixMap->getHeight(), pixMap->getHeader(), pixMap->getFilename(), pixMap->getColorValue(), newData);
 }

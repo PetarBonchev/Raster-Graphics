@@ -44,6 +44,11 @@ void GrayMap::rotate(bool left)
 		rotateRight();
 }
 
+NetPbm* GrayMap::clone() const
+{
+	return new GrayMap(*this);
+}
+
 void GrayMap::rotateLeft()
 {
 	unsigned rows = data[0].getMaxNumber() + 1;
@@ -52,7 +57,7 @@ void GrayMap::rotateLeft()
 	Vector<BitSet> newData;
 	for (unsigned i = 0;i < rows;i++)
 	{
-		BitSet newRow(cols - 1, maxGray);
+		BitSet newRow(cols - 1, Utility::minimumBitsToStore(maxGray));
 		for (unsigned j = 0;j < cols;j++)
 		{
 			newRow.setNumber(j, data[j].getNumber(rows - i - 1));
@@ -61,6 +66,9 @@ void GrayMap::rotateLeft()
 	}
 
 	data = newData;
+
+	height = rows;
+	width = cols;
 }
 
 void GrayMap::rotateRight()
@@ -71,7 +79,7 @@ void GrayMap::rotateRight()
 	Vector<BitSet> newData;
 	for (unsigned i = 0;i < rows;i++)
 	{
-		BitSet newRow(cols - 1, maxGray);
+		BitSet newRow(cols - 1, Utility::minimumBitsToStore(maxGray));
 		for (unsigned j = 0;j < cols;j++)
 		{
 			newRow.setNumber(j, data[cols - j - 1].getNumber(i));
@@ -80,6 +88,9 @@ void GrayMap::rotateRight()
 	}
 
 	data = newData;
+
+	height = rows;
+	width = cols;
 }
 
 const unsigned GrayMap::getMaxGray() const

@@ -12,6 +12,8 @@ public:
 	void negative() override;
 	void rotate(bool left)override;
 
+	NetPbm* clone() const override;
+
 	const unsigned getMaxGray()const;
 	const Vector<BitSet>& getData()const;
 

@@ -32,6 +32,11 @@ void PixMap::rotate(bool left)
 		rotateRight();
 }
 
+NetPbm* PixMap::clone() const
+{
+	return new PixMap(*this);
+}
+
 void PixMap::negative()
 {
 	for (unsigned i = 0;i < data.getSize();i++)
@@ -64,7 +69,7 @@ void PixMap::rotateLeft()
 		Vector<Color> newRow;
 		for (unsigned j = 0;j < cols;j++)
 		{
-			BitSet newData(Utility::NUMBER_OF_COLORS_IN_PIXEL, colorValue);
+			BitSet newData(Utility::NUMBER_OF_COLORS_IN_PIXEL, Utility::minimumBitsToStore(colorValue));
 			newData.setNumber(Utility::RED_POSITION, data[j][rows - i - 1].r());
 			newData.setNumber(Utility::GREEN_POSITION, data[j][rows - i - 1].g());
 			newData.setNumber(Utility::BLUE_POSITION, data[j][rows - i - 1].b());
@@ -75,6 +80,9 @@ void PixMap::rotateLeft()
 	}
 
 	data = newData;
+
+	height = rows;
+	width = cols;
 }
 
 void PixMap::rotateRight()
@@ -88,7 +96,7 @@ void PixMap::rotateRight()
 		Vector<Color> newRow;
 		for (unsigned j = 0;j < cols;j++)
 		{
-			BitSet newData(Utility::NUMBER_OF_COLORS_IN_PIXEL, colorValue);
+			BitSet newData(Utility::NUMBER_OF_COLORS_IN_PIXEL, Utility::minimumBitsToStore(colorValue));
 			newData.setNumber(Utility::RED_POSITION, data[cols - j - 1][i].r());
 			newData.setNumber(Utility::GREEN_POSITION, data[cols - j - 1][i].g());
 			newData.setNumber(Utility::BLUE_POSITION, data[cols - j - 1][i].b());
@@ -99,4 +107,7 @@ void PixMap::rotateRight()
 	}
 
 	data = newData;
+
+	height = rows;
+	width = cols;
 }

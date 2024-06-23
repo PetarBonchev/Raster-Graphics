@@ -10,6 +10,7 @@ public:
 	void execute() override;
 	void undo() override;
 	CommandVector* clone()const override;
+	MyString message()const override;
 private:
 	
 	NetPbm* PixMapToGray(unsigned idx);

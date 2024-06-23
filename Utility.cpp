@@ -69,4 +69,15 @@ unsigned Utility::minimumBitsToStore(unsigned number)
 	return ans;
 }
 
+unsigned Utility::digitCount(unsigned number)
+{
+	unsigned ans = 0;
+	while (number)
+	{
+		number /= 10;
+		ans++;
+	}
+	return ans;
+}
+
 

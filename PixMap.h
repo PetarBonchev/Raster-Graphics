@@ -13,6 +13,8 @@ public:
 	void negative() override;
 	void rotate(bool left)override;
 
+	NetPbm* clone() const override;
+
 	const unsigned getColorValue()const;
 	const Vector<Vector<Color>>& getData()const;
 

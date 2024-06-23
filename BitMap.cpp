@@ -41,6 +41,11 @@ void BitMap::rotate(bool left)
 		rotateRight();
 }
 
+NetPbm* BitMap::clone() const
+{
+	return new BitMap(*this);
+}
+
 const Vector<BitSet>& BitMap::getData() const
 {
 	return data;
@@ -63,6 +68,9 @@ void BitMap::rotateLeft()
 	}
 
 	data = newData;
+
+	height = rows;
+	width = cols;
 }
 
 void BitMap::rotateRight()
@@ -82,6 +90,9 @@ void BitMap::rotateRight()
 	}
 
 	data = newData;
+
+	height = rows;
+	width = cols;
 }
 /*
 11 12 13 14

@@ -24,6 +24,7 @@ namespace Utility
 	const char DEFAULT_MAGIC_NUMBER = '0';
 	const unsigned DEFAULT_WIDTH = 0;
 	const unsigned DEFAULT_HEIGHT = 0;
+	const char MAGIC_NUMBER_SYMBOL = 'P';
 
 	//Color
 	const unsigned RED_POSITION = 0;
@@ -63,10 +64,8 @@ namespace Utility
 	unsigned charToDigit(char ch);
 	bool isBit(unsigned number);
 	unsigned minimumBitsToStore(unsigned number);
+	unsigned digitCount(unsigned number);
 
 	const unsigned EXPECTED_NUMBERS_BITMAP = 2;
 	const unsigned EXPECTED_NUMBERS_OTHERS = 3;
-
-	//NetPbmSaver
-	
 }

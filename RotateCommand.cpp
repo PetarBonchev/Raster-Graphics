@@ -9,3 +9,22 @@ void RotateCommand::execute()
 		data[i]->rotate(rotateLeft);
 	}
 }
+
+void RotateCommand::undo()
+{
+}
+
+CommandVector* RotateCommand::clone() const
+{
+	return new RotateCommand(*this);
+}
+
+MyString RotateCommand::message() const
+{
+	MyString msg("rotate ");
+	if (rotateLeft)
+		msg += MyString("left");
+	else
+		msg += MyString("right");
+	return msg;
+}

@@ -14,6 +14,7 @@ public:
 
 	virtual void execute() = 0;
 	virtual void undo() = 0;
+	virtual MyString message()const = 0;
 
 	virtual ~CommandVector() = default;
 	virtual CommandVector* clone()const = 0;

@@ -13,6 +13,8 @@ public:
 	virtual bool isValid() const;
 	virtual void negative() = 0;
 	virtual void rotate(bool left) = 0;
+	
+	virtual NetPbm* clone() const = 0;
 
 	const char getMagicNumber()const;
 	const unsigned getWidth()const;

@@ -39,6 +39,11 @@ CommandVector* ToBitCommand::clone() const
 	return new ToBitCommand(*this);
 }
 
+MyString ToBitCommand::message() const
+{
+	return MyString("monochrome");
+}
+
 NetPbm* ToBitCommand::GrayMapToBit(unsigned idx)
 {
 	GrayMap* grayMap = (GrayMap*)data[idx].get();
@@ -92,7 +97,7 @@ NetPbm* ToBitCommand::PixMapToBit(unsigned idx)
 		newData.pushBack(newRow);
 	}
 
-	char newMagicNumber = pixMap->getMagicNumber() == Utility::GRAYMAP_NORMAL_MAGIC_NUMBER ?
+	char newMagicNumber = pixMap->getMagicNumber() == Utility::PIXMAP_NORMAL_MAGIC_NUMBER ?
 		Utility::BITMAP_NORMAL_MAGIC_NUMBER : Utility::BITMAP_BINARY_MAGIC_NUMBER;
 
 	return new BitMap(newMagicNumber, pixMap->getWidth(), pixMap->getHeight(), pixMap->getHeader(), pixMap->getFilename(), newData);
