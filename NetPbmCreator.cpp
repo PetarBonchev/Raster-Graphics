@@ -159,8 +159,6 @@ NetPbm* NetPbmCreator::readGrayMap(const MyString& filename, unsigned headerSkip
 
 NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned colorValue)
 {
-	unsigned capacity = Utility::minimumBitsToStore(colorValue);
-
 	std::ifstream ifs(filename.c_str());
 
 	if (!ifs.is_open())
@@ -200,17 +198,111 @@ NetPbm* NetPbmCreator::readPixMap(const MyString& filename, unsigned headerSkip,
 
 NetPbm* NetPbmCreator::readBitMapBinary(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header)
 {
-	return nullptr;
+	std::ifstream ifs(filename.c_str(), std::ios::binary);
+
+	if (!ifs.is_open())
+		throw std::logic_error("invalid file location");
+
+	ifs.seekg(headerSkip);
+
+	Vector<BitSet> data;
+	for (unsigned i = 0; i < height; i++)
+	{
+		BitSet row(width - 1, Utility::DEFAULT_MAX_BIT_VALUE);
+		for (unsigned j = 0; j < width; j++)
+		{
+			uint8_t bit;
+			ifs.read((char*)&bit, sizeof(uint8_t));
+
+			if (!Utility::isBit((uint8_t)bit))
+				throw std::logic_error("invalid data");
+
+			row.setNumber(j, bit);
+		}
+		data.pushBack(std::move(row));
+	}
+
+	ifs.close();
+
+	return new BitMap(Utility::BITMAP_BINARY_MAGIC_NUMBER, width, height, header, filename, data);
 }
 
 NetPbm* NetPbmCreator::readGrayMapBinary(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned maxGray)
 {
-	return nullptr;
+	unsigned capacity = Utility::minimumBitsToStore(maxGray);
+
+	std::ifstream ifs(filename.c_str(),std::ios::binary);
+
+	if (!ifs.is_open())
+		throw std::logic_error("invalid file location");
+
+	ifs.seekg(headerSkip);
+
+	Vector<BitSet> data;
+	for (unsigned i = 0; i < height; i++)
+	{
+		BitSet row(width - 1, capacity);
+
+		for (unsigned j = 0; j < width; j++)
+		{
+			uint8_t gray;
+			ifs.read((char*)&gray, sizeof(uint8_t));
+
+			if ((uint8_t)gray > (uint8_t)maxGray)
+				throw std::logic_error("invalid data");
+
+			row.setNumber(j, gray);
+		}
+		data.pushBack(row);
+	}
+
+	ifs.close();
+
+	return new GrayMap(Utility::GRAYMAP_BINARY_MAGIC_NUMBER, width, height, header, filename, maxGray, data);
 }
 
 NetPbm* NetPbmCreator::readPixMapBinary(const MyString& filename, unsigned headerSkip, unsigned width, unsigned height, const Vector<MyString>& header, unsigned colorValue)
 {
-	return nullptr;
+	unsigned capacity = Utility::minimumBitsToStore(colorValue);
+
+	std::ifstream ifs(filename.c_str(),std::ios::binary);
+
+	if (!ifs.is_open())
+		throw std::logic_error("invalid file location");
+
+	ifs.seekg(headerSkip);
+
+	Vector<Vector<Color>> data;
+	for (unsigned i = 0; i < height; i++)
+	{
+		Vector<Color> row;
+
+		for (unsigned j = 0; j < width; j++)
+		{
+			uint8_t red, green, blue;
+			ifs.read((char*)&red, sizeof(uint8_t));
+			ifs.read((char*)&green, sizeof(uint8_t));
+			ifs.read((char*)&blue, sizeof(uint8_t));
+
+			//std::cout << colorValue << std::endl;
+			//std::cout << "rgb: " << (uint8_t)red << " " << (uint8_t)green << " " << (uint8_t)blue << std::endl;
+			if ((uint8_t)red > (uint8_t)colorValue || (uint8_t)green > (uint8_t)colorValue || (uint8_t)blue > (uint8_t)colorValue)
+				throw std::logic_error("invalid data");
+
+			BitSet bitset(Utility::NUMBER_OF_COLORS_IN_PIXEL - 1, Utility::minimumBitsToStore(colorValue));
+			bitset.setNumber(Utility::RED_POSITION, green);
+			bitset.setNumber(Utility::GREEN_POSITION, blue);
+			bitset.setNumber(Utility::BLUE_POSITION, red);
+			Color temp(bitset);
+			row.pushBack(temp);
+			//row[row.getSize() - 1].check();
+		}
+		data.pushBack(row);
+	}
+
+	ifs.close();
+
+	return new PixMap(Utility::PIXMAP_BINARY_MAGIC_NUMBER, width, height, header, filename, colorValue, data);
 }
 
 Vector<unsigned> strToVector(const MyString& str)

@@ -47,6 +47,8 @@ void NetPbmSaver::saveP1(const BitMap* object)
 		}
 		ofs << std::endl;
 	}
+
+	ofs.close();
 }
 
 void NetPbmSaver::saveP2(const GrayMap* object)
@@ -62,6 +64,8 @@ void NetPbmSaver::saveP2(const GrayMap* object)
 		}
 		ofs << std::endl;
 	}
+
+	ofs.close();
 }
 
 void NetPbmSaver::saveP3(const PixMap* object)
@@ -79,16 +83,73 @@ void NetPbmSaver::saveP3(const PixMap* object)
 		}
 		ofs << std::endl;
 	}
+
+	ofs.close();
 }
 
 void NetPbmSaver::saveP4(const BitMap* object)
 {
+	std::ofstream ofs(object->getFilename().c_str(), std::ios::app | std::ios::binary);
+
+	for (unsigned i = 0;i < object->getData().getSize();i++)
+	{
+		for (unsigned j = 0;j <= object->getData()[i].getMaxNumber();j++)
+		{
+			uint8_t val = object->getData()[i].getNumber(j);
+			ofs.write((const char*)&val, sizeof(uint8_t));
+		}
+	}
+
+	ofs.close();
 }
 
 void NetPbmSaver::saveP5(const GrayMap* object)
 {
+	std::ofstream oofs(object->getFilename().c_str(), std::ios::app);
+
+	oofs << object->getMaxGray() << std::endl;
+
+	oofs.close();
+
+
+	std::ofstream ofs(object->getFilename().c_str(), std::ios::app | std::ios::binary);
+
+	for (unsigned i = 0;i < object->getData().getSize();i++)
+	{
+		for (unsigned j = 0;j <= object->getData()[i].getMaxNumber();j++)
+		{
+			uint8_t val = object->getData()[i].getNumber(j);
+			ofs.write((const char*)&val, sizeof(uint8_t));
+		}
+	}
+
+	ofs.close();
 }
 
 void NetPbmSaver::saveP6(const PixMap* object)
 {
+	std::ofstream oofs(object->getFilename().c_str(), std::ios::app);
+
+	oofs << object->getColorValue() << std::endl;
+
+	oofs.close();
+
+
+	std::ofstream ofs(object->getFilename().c_str(), std::ios::app | std::ios::binary);
+
+	for (unsigned i = 0;i < object->getData().getSize();i++)
+	{
+		for (unsigned j = 0;j < object->getData()[i].getSize();j++)
+		{
+			uint8_t r = object->getData()[i][j].r();
+			uint8_t g = object->getData()[i][j].g();
+			uint8_t b = object->getData()[i][j].b();
+
+			ofs.write((const char*)&r, sizeof(uint8_t));
+			ofs.write((const char*)&g, sizeof(uint8_t));
+			ofs.write((const char*)&b, sizeof(uint8_t));
+		}
+	}
+
+	ofs.close();
 }

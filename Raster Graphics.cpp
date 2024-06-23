@@ -142,7 +142,9 @@ void readCommand(bool& shouldExit)
 		if (words.getSize() != 1)
 			throw std::logic_error("invalid command");
 
+		SessionManager::getInstance().getCurrentSession()->executeAll();
 		SessionManager::getInstance().getCurrentSession()->saveAll();
+		std::cout << "Images saved successfully" << std::endl;
 		shouldExit = true;
 	}
 	else if (!std::strcmp(words[0].c_str(), "exit"))
@@ -154,20 +156,40 @@ void readCommand(bool& shouldExit)
 	}
 	else if (!std::strcmp(words[0].c_str(), "collage"))
 	{
+		CommandVector* newCommand = CommandFactory::createCommand(line);
+		SessionManager::getInstance().getCurrentSession()->addCommand(newCommand);
+	}
+	else if (!std::strcmp(words[0].c_str(), "undo"))
+	{
+		if (words.getSize() != 1)
+			throw std::logic_error("invalid command");
 
+		SessionManager::getInstance().getCurrentSession()->undo();
 	}
 	else if (!std::strcmp(words[0].c_str(), "help"))
 	{
-		std::cout << "\n\nRASTER GRAPHICS";
-
-		std::cout << "Command list:\n";
-		std::cout << "1.\n";
-		std::cout << "1.\n";
-		std::cout << "1.\n";
-		std::cout << "1.\n";
-		std::cout << "1.\n";
+		std::cout << "\nCommand list:\n";
+		std::cout << "1. grayscale\n";
+		std::cout << "2. monochrome\n";
+		std::cout << "3. negative\n";
+		std::cout << "4. rotate left\n";
+		std::cout << "5. rotate right\n";
+		std::cout << "6. collage <horizontal/vertical> <filename1> <filename2> <save filename>\n";
+		std::cout << "7. undo - removes last command of type 1-6 from current session\n";
+		std::cout << "8. add <filename>\n";
+		std::cout << "9. session info\n";
+		std::cout << "10. switch <session ID>\n";
+		std::cout << "11. load <filename1> <filename2> ... - loads arbitrary number of images\n";
+		std::cout << "12. save - executes commands and saves every image to its file\n";
+		std::cout << "13. saveas <filename> - saves first image to new file\n";
+		std::cout << "14. close - saves and closes\n";
+		std::cout << "15. exit - exits without saving\n";
+		std::cout << "Press ENTER to complete a command\n";
 	}
-
+	else
+	{
+		throw std::logic_error("invalid command");
+	}
 	std::cout << std::endl;
 }
 
@@ -184,7 +206,7 @@ void programLoop()
 			}
 			catch (std::logic_error err)
 			{
-				std::cout << "WARNING! " << err.what() << std::endl;
+				std::cout << "WARNING! " << err.what() << std::endl << std::endl;
 			}
 
 		}
@@ -194,10 +216,15 @@ void programLoop()
 	{
 		std::cout << "FATAL ERROR: " << ex.what();
 	}
+	catch (...)
+	{
+		std::cout << "Undefined fatal error!" << std::endl;
+	}
 }
 
 int main()
 {
+	std::cout << "RASTER GRAPHICS\n\n";
 	programLoop();
 
 	//try

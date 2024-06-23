@@ -33,6 +33,10 @@ void Session::executeAll()
 
 void Session::undo()
 {
+	if (commands.getSize() == 0)
+		return;
+
+	commands.popBack();
 }
 
 void Session::saveAll() const
@@ -62,7 +66,9 @@ MyString Session::history() const
 	info += MyString("\nPending transformations: ");
 	for (unsigned i = currentCommand;i < commands.getSize();i++)
 	{
-		info += commands[i]->message() + MyString(" ");
+		info += commands[i]->message();
+		if (i < commands.getSize() - 1) 
+			info += MyString(", ");
 	}
 	return info;
 }

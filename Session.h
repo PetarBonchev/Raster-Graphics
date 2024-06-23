@@ -13,7 +13,7 @@ public:
 	void addNetpbm(NetPbm* object);
 	void execute();
 	void executeAll();
-	void undo();//not using
+	void undo();
 	void saveAll()const;
 	void saveFirst(const MyString& filename);
 	MyString history()const;
